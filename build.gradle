@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "5.2.0"
+    id 'edu.sc.seis.launch4j' version '2.4.3'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compile group: 'com.1stleg', name: 'jnativehook', version: '2.0.3'
+    compile group: 'net.sourceforge.tess4j', name: 'tess4j', version: '4.5.3'
+    compile group: 'org.json', name: 'json', version: '20200518'
+    compile group: 'org.kohsuke', name: 'github-api', version: '1.116'
+    compile "com.squareup.okhttp3:okhttp:4.8.1"
+}
+
+jar {
+    manifest.attributes('Main-Class': 'me.niotgg.Main')
+}
+
+launch4j {
+    jar = 'C:\\Users\\mateu\\IdeaProjects\\OCRTranslate\\build\\libs\\OCRTranslate-1.0-SNAPSHOT-all.jar'
+    mainClassName = 'me.niotgg.Main'
+    icon = "C:\\Users\\mateu\\IdeaProjects\\OCRTranslate\\build\\resources\\main\\check.ico"
+    manifest = "C:\\Users\\mateu\\IdeaProjects\\OCRTranslate\\build\\resources\\main\\myapp.manifest"
+}

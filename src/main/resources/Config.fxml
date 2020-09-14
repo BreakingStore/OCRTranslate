@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="archorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="168.0" prefWidth="512.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="me.niotgg.configuration.ConfigController">
+   <children>
+      <Label layoutX="14.0" layoutY="52.0" text="Entrada OCR:">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="295.0" layoutY="52.0" text="Saida:">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="choiceBox" layoutX="341.0" layoutY="48.0" prefWidth="150.0" />
+      <Button fx:id="saveButton" layoutX="215.0" layoutY="116.0" mnemonicParsing="false" onAction="#saveButtonOnAction" text="Salvar">
+         <font>
+            <Font name="Arial" size="14.0" />
+         </font>
+      </Button>
+      <ChoiceBox fx:id="choiceBox2" layoutX="106.0" layoutY="48.0" prefHeight="25.0" prefWidth="130.0" />
+      <Button fx:id="downloadManagerButton" layoutX="244.0" layoutY="48.0" mnemonicParsing="false" onAction="#downloadManagerButtonOnAction" prefHeight="25.0" prefWidth="40.0" text="..." />
+   </children>
+</AnchorPane>

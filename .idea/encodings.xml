@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/App.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/AppManager.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/Main.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/captureform/CaptureFrame.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/captureform/KeyTrack.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/captureform/MouseTrackClick.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/captureform/MouseTrackMoviment.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/captureform/ScreenPanel.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/configuration/CodeLenguages.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/configuration/ConfigFrame.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/download/DownloadController.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/download/LanguageTessdata.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/output/OutputFrame.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/systemcapture/Capture.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/translate/Language.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/main/java/me/niotgg/translate/TranslateAPI.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/test/java/Test.java" charset="windows-1252" />
+  </component>
+</project>
