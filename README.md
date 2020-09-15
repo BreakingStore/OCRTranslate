@@ -3,7 +3,7 @@
 ###### Sistema de tradução via OCR
 
 
-***Este é um simples programa para ler um texto em uma área na qual é selecionada e traduzi-lo para a linguagem escolhida, a leitura é feita via OCR e a tradução é feita usando o Goole Translate. Este programa foi feito para fins de aprendizado, portanto pode conter erros, caso queira reportar um erro me adicione no discord: NiotGG#6961***
+***Este é um simples programa para ler um texto em uma área na qual é selecionada e traduzi-lo para a linguagem escolhida, a leitura é feita via OCR e a tradução é feita usando o Google Translate. Este programa foi feito para fins de aprendizado, portanto pode conter erros, caso queira reportar um erro me adicione no discord: NiotGG#6961***
 
 ## Download EXE
 ***Executavel: [OCRTranslate.exe](https://github.com/NiotGG/OCRTranslate/releases/download/1.0/OCRTranslate.exe)***
