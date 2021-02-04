@@ -7,13 +7,19 @@ import java.awt.*;
 
 public class OutputFrame extends JFrame {
 
-    public OutputFrame(String text) {
+    public OutputFrame(String text, boolean onlyOcr) {
 
         Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/check.png"));
         setIconImage(img);
         setSize(532, 278);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setTitle("Tradução");
+        if (onlyOcr) {
+            setTitle("Leitura");
+        } else {
+            setTitle("Tradução");
+        }
+
+
 
 
         JScrollPane jScrollPane = new JScrollPane();

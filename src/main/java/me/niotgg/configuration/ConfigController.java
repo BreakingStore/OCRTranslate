@@ -3,9 +3,8 @@ package me.niotgg.configuration;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -43,6 +42,9 @@ public class ConfigController implements Initializable {
     private Button downloadManagerButton;
 
     @FXML
+    private CheckBox onlyOcrCheckBox;
+
+    @FXML
     void downloadManagerButtonOnAction(ActionEvent event) {
         Main.appManager.showDownload();
     }
@@ -51,6 +53,7 @@ public class ConfigController implements Initializable {
 
     @FXML
     void saveButtonOnAction(ActionEvent event) {
+
         if (choiceBox2.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Você deve selecionar uma entrada.");
             alert.show();
@@ -91,6 +94,12 @@ public class ConfigController implements Initializable {
 
         Config config = Main.appManager.getConfig();
 
+        if (onlyOcrCheckBox.isSelected()) {
+            config.setInOnlyOcr(true);
+        } else {
+            config.setInOnlyOcr(false);
+        }
+
         config.setInput(choiceBox2.getSelectionModel().getSelectedItem().toString());
         config.setOutput(language);
 
@@ -99,6 +108,11 @@ public class ConfigController implements Initializable {
 
         Main.appManager.resetConfig();
         Main.appManager.getTrayIcon().displayMessage("OCRTranslate", "Salvo com sucesso.", TrayIcon.MessageType.INFO);
+    }
+
+    @FXML
+    void onOnlyOcrCheckBoxAction(ActionEvent event) {
+
     }
 
     @Override
@@ -146,6 +160,10 @@ public class ConfigController implements Initializable {
                     choiceBox.getItems().add(f.getName());
                 }
             }
+        }
+
+        if (config.getInOnlyOcr()) {
+            onlyOcrCheckBox.setSelected(true);
         }
     }
 

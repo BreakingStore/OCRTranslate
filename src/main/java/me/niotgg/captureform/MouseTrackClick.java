@@ -27,15 +27,52 @@ public class MouseTrackClick implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (captureFrame.captureRect != null) {
-            captureFrame.dispatchEvent(new WindowEvent(captureFrame, WindowEvent.WINDOW_CLOSING));
-            Main.appManager.getTrayIcon().displayMessage("OCRTranslate", "Traduzindo, aguarde...", TrayIcon.MessageType.INFO);
-            Main.inCaptureFrame = false;
+        captureFrame.dispatchEvent(new WindowEvent(captureFrame, WindowEvent.WINDOW_CLOSING));
+        Main.inCaptureFrame = false;
+
+        Config config = Main.appManager.getConfig();
+
+        if (config.getInOnlyOcr()) {
+            Main.appManager.getTrayIcon().displayMessage("OCRTranslate", "Lendo, aguarde...", TrayIcon.MessageType.INFO);
+
+
             try {
                 Robot robot = new Robot();
                 BufferedImage capture = robot.createScreenCapture(captureFrame.captureRect);
 
-                Config config = Main.appManager.getConfig();
+                String input = config.getInput();
+
+                if (input.isEmpty()) {
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "Você precisa configurar a entrada primeiro.");
+                        alert.show();
+                    });
+                    return;
+                }
+
+
+                Tesseract tesseract = new Tesseract();
+
+                tesseract.setDatapath("C:\\Program Files\\OCRLenguages\\");
+                tesseract.setLanguage(input.replace(".traineddata", ""));
+
+
+
+                new OutputFrame(tesseract.doOCR(capture), true);
+
+            } catch (AWTException ex) {
+                ex.printStackTrace();
+            } catch (TesseractException tesseractException) {
+                tesseractException.printStackTrace();
+            }
+
+        } else {
+
+            Main.appManager.getTrayIcon().displayMessage("OCRTranslate", "Traduzindo, aguarde...", TrayIcon.MessageType.INFO);
+
+            try {
+                Robot robot = new Robot();
+                BufferedImage capture = robot.createScreenCapture(captureFrame.captureRect);
 
                 String input = config.getInput();
                 String output = config.getOutput();
@@ -45,8 +82,8 @@ public class MouseTrackClick implements MouseListener {
                     Platform.runLater(() -> {
                         Alert alert = new Alert(Alert.AlertType.ERROR, "Você precisa configurar a entrada e saida primeiro.");
                         alert.show();
-                        return;
                     });
+                    return;
                 }
 
 
@@ -64,8 +101,8 @@ public class MouseTrackClick implements MouseListener {
                 }
 
 
-                new OutputFrame(translateAPI.translate());
 
+                new OutputFrame(translateAPI.translate(), false);
 
             } catch (AWTException ex) {
                 ex.printStackTrace();

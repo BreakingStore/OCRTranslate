@@ -2,7 +2,7 @@ package me.niotgg.captureform;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+
 
 public class ScreenPanel extends JPanel {
 

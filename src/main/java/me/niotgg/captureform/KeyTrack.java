@@ -30,47 +30,85 @@ public class KeyTrack extends KeyAdapter {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
             captureFrame.dispatchEvent(new WindowEvent(captureFrame, WindowEvent.WINDOW_CLOSING));
-            Main.appManager.getTrayIcon().displayMessage("OCRTranslate", "Traduzindo, aguarde...", TrayIcon.MessageType.INFO);
             Main.inCaptureFrame = false;
-            try {
-                Robot robot = new Robot();
-                BufferedImage capture = robot.createScreenCapture(captureFrame.captureRect);
+
+            Config config = Main.appManager.getConfig();
+
+            if (config.getInOnlyOcr()) {
+                Main.appManager.getTrayIcon().displayMessage("OCRTranslate", "Lendo, aguarde...", TrayIcon.MessageType.INFO);
 
 
-                Config config = Main.appManager.getConfig();
+                try {
+                    Robot robot = new Robot();
+                    BufferedImage capture = robot.createScreenCapture(captureFrame.captureRect);
 
-                String input = config.getInput();
-                String output = config.getOutput();
+                    String input = config.getInput();
+
+                    if (input.isEmpty()) {
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.ERROR, "Você precisa configurar a entrada primeiro.");
+                            alert.show();
+                        });
+                        return;
+                    }
 
 
-                if (input.isEmpty() || output.isEmpty()) {
-                    Platform.runLater(() -> {
-                        Alert alert = new Alert(Alert.AlertType.ERROR, "Você precisa configurar a entrada e saida primeiro.");
-                        alert.show();
-                    });
-                    return;
+                    Tesseract tesseract = new Tesseract();
+
+                    tesseract.setDatapath("C:\\Program Files\\OCRLenguages\\");
+                    tesseract.setLanguage(input.replace(".traineddata", ""));
+
+
+
+                    new OutputFrame(tesseract.doOCR(capture), true);
+
+                } catch (AWTException ex) {
+                    ex.printStackTrace();
+                } catch (TesseractException tesseractException) {
+                    tesseractException.printStackTrace();
                 }
 
+            } else {
 
-                Tesseract tesseract = new Tesseract();
+                Main.appManager.getTrayIcon().displayMessage("OCRTranslate", "Traduzindo, aguarde...", TrayIcon.MessageType.INFO);
 
-                tesseract.setDatapath("C:\\Program Files\\OCRLenguages\\");
-                tesseract.setLanguage(input.replace(".traineddata", ""));
-
-
-                TranslateAPI translateAPI = null;
                 try {
-                    translateAPI = new TranslateAPI(Language.AUTO_DETECT, output, tesseract.doOCR(capture));
-                } catch (TesseractException ex) {
+                    Robot robot = new Robot();
+                    BufferedImage capture = robot.createScreenCapture(captureFrame.captureRect);
+
+                    String input = config.getInput();
+                    String output = config.getOutput();
+
+
+                    if (input.isEmpty() || output.isEmpty()) {
+                        Platform.runLater(() -> {
+                            Alert alert = new Alert(Alert.AlertType.ERROR, "Você precisa configurar a entrada e saida primeiro.");
+                            alert.show();
+                        });
+                        return;
+                    }
+
+
+                    Tesseract tesseract = new Tesseract();
+
+                    tesseract.setDatapath("C:\\Program Files\\OCRLenguages\\");
+                    tesseract.setLanguage(input.replace(".traineddata", ""));
+
+
+                    TranslateAPI translateAPI = null;
+                    try {
+                        translateAPI = new TranslateAPI(Language.AUTO_DETECT, output, tesseract.doOCR(capture));
+                    } catch (TesseractException ex) {
+                        ex.printStackTrace();
+                    }
+
+
+
+                    new OutputFrame(translateAPI.translate(), false);
+
+                } catch (AWTException ex) {
                     ex.printStackTrace();
                 }
-
-
-
-                new OutputFrame(translateAPI.translate());
-
-            } catch (AWTException ex) {
-                ex.printStackTrace();
             }
 
 

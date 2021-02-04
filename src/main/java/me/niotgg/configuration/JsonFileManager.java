@@ -55,7 +55,11 @@ public class JsonFileManager {
 
 
 
-            printWriter.print("{ \"input\": \"\", \"output\": \"\" }");
+            printWriter.print("{\n" +
+                    "  \"input\": \"\",\n" +
+                    "  \"output\": \"\",\n" +
+                    "  \"in_only_ocr\": false\n" +
+                    "}");
 
             printWriter.flush();
             printWriter.close();
@@ -71,6 +75,7 @@ public class JsonFileManager {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("input", config.getInput());
         jsonObject.put("output", config.getOutput());
+        jsonObject.put("in_only_ocr", config.getInOnlyOcr());
 
         PrintWriter printWriter = null;
         try {
@@ -102,7 +107,7 @@ public class JsonFileManager {
             e.printStackTrace();
         }
 
-        return new Config(jsonObject.getString("input"), jsonObject.getString("output"));
+        return new Config(jsonObject.getString("input"), jsonObject.getString("output"), jsonObject.getBoolean("in_only_ocr"));
     }
 
 }

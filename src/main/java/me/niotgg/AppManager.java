@@ -22,6 +22,7 @@ public class AppManager {
     private Config config;
     private LanguageTessdata languageTessdata = new LanguageTessdata();
     private TrayIcon trayIcon;
+    private boolean inOnlyOcrMode = false;
 
 
     public AppManager() {
@@ -159,5 +160,13 @@ public class AppManager {
 
     public TrayIcon getTrayIcon() {
         return trayIcon;
+    }
+
+    public boolean getIsInOnlyOcrMode() {
+        return inOnlyOcrMode;
+    }
+
+    public void setOnlyOcrMode(boolean mode) {
+        inOnlyOcrMode = mode;
     }
 }
