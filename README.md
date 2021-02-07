@@ -15,6 +15,7 @@ O programa irá rodar em segundo plano, ao iniciar pela primeira vez deve-se con
 ## Novidades
 
 - Adicionado OnlyOcrMode (Modo que apenas faz uma leitura sem tradução)
+- Melhoria no sistema de captura
 
 ## Tutorial
 ###### Clique no gif para assistir em melhor qualidade
