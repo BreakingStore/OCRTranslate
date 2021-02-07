@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 public class CaptureFrame extends JFrame {
 
+    public BufferedImage firstScreen;
     public BufferedImage screen;
     public BufferedImage screenCopy;
     public JPanel jPanel;
@@ -15,6 +16,14 @@ public class CaptureFrame extends JFrame {
     public CaptureFrame(BufferedImage bufferedImage) {
 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+
+
+        firstScreen = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), bufferedImage.getType());
+
+        Graphics g = firstScreen.getGraphics();
+        g.drawImage(bufferedImage, 0, 0, null);
+        g.dispose();
 
         screen = escalaDeCinza(bufferedImage);
 
@@ -43,12 +52,33 @@ public class CaptureFrame extends JFrame {
     }
 
     public void repaint(BufferedImage orig, BufferedImage copy) {
+
+
         Graphics2D g = copy.createGraphics();
         g.drawImage(orig, 0, 0, null);
         g.setColor(Color.RED);
         if (captureRect == null) {
             return;
         }
+
+        if (captureRect.height != 0 && captureRect.width != 0) {
+            java.awt.Image image = firstScreen;
+            java.awt.image.FilteredImageSource fis = new java.awt.image.FilteredImageSource(
+                    image.getSource(), new java.awt.image.CropImageFilter(Math.round(captureRect.x), Math.round(captureRect.y), Math.round(captureRect.width), Math.round(captureRect.height))
+            );
+            image = null;
+            image = java.awt.Toolkit.getDefaultToolkit().createImage(fis);
+
+
+            BufferedImage bi = new BufferedImage
+                    (image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_INT_RGB);
+            Graphics bg = bi.getGraphics();
+            bg.drawImage(image, 0, 0, null);
+            bg.dispose();
+
+            g.drawImage(bi, captureRect.x, captureRect.y, null);
+        }
+
         g.draw(captureRect);
         g.setColor(new Color(25, 25, 23, 10));
         g.fill(captureRect);
